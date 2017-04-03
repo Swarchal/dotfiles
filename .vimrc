@@ -36,6 +36,13 @@ if filereadable(expand("~/.vimrc_background"))
     source ~/.vimrc_background
 endif
 
+" set up vim-slime to work with tmux
+let g:slime_target="tmux"
+let g:slime_python_ipython=1
+
+" allow saving files as sudo when I don't open vim as root
+cmap w!! w !sudo tee > /dev/null %
+
 " coloured status bar
 set laststatus=2
 
