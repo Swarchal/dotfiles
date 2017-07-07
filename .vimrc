@@ -1,4 +1,4 @@
-filetype off
+filetype on
 filetype plugin indent on
 filetype plugin on
 syntax on
@@ -10,8 +10,17 @@ set fo-=t " dont automatically wrap text when typing
 " spaces > tabs
 set tabstop=4
 set softtabstop=4
+set shiftwidth=4
 set shiftround
 set expandtab
+
+
+" wrap .tex files
+augroup WrapLineInTeXFile
+    autocmd!
+    autocmd FileType tex set wrap linebreak nolist
+    autocmd FileType tex match Errormsg ''
+augroup END
 
 set number
 set rnu
@@ -24,6 +33,7 @@ noremap <Down> <nop>
 noremap <Left> <nop>
 noremap <Right> <nop>
 filetype plugin on
+let g:pydiction_location='/usr/share/vim/vim74/pydiction/complete-dict' 
 
 " show trailing whitespace
 set list listchars=tab:»·,trail:·
@@ -40,7 +50,7 @@ endif
 let g:slime_target="tmux"
 let g:slime_python_ipython=1
 
-" allow saving files as sudo when I don't open vim as root
+" Allow saving of files as sudo when I forget to open vim as root
 cmap w!! w !sudo tee > /dev/null %
 
 " coloured status bar
