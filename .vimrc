@@ -39,6 +39,9 @@ let g:pydiction_location='/usr/share/vim/vim74/pydiction/complete-dict'
 set list listchars=tab:»·,trail:·
 set list
 
+" highlight search matches
+set hlsearch
+
 " base16
 set t_Co=256
 if filereadable(expand("~/.vimrc_background"))
