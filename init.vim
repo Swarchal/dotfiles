@@ -1,7 +1,10 @@
 filetype on
 filetype plugin indent on
 filetype plugin on
+set background=dark
 syntax on
+
+set encoding=utf-8
 
 set tw=79
 set nowrap " dont automatically wrap text on load
@@ -24,7 +27,7 @@ augroup END
 
 set number
 set rnu
-set background=dark
+
 
 match ErrorMsg '\%>80v.\+'
 inoremap jk <Esc>
@@ -39,22 +42,47 @@ let g:pydiction_location='/usr/share/vim/vim74/pydiction/complete-dict'
 set list listchars=tab:»·,trail:·
 set list
 
-" base16
-set t_Co=256
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-endif
+set termguicolors
+let g:airline_theme = 'base16'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline_skip_empty_sections = 1
 
 " set up vim-slime to work with tmux
 let g:slime_target="tmux"
 let g:slime_python_ipython=1
+let g:slime_target = "neovim"
 
 " Allow saving of files as sudo when I forget to open vim as root
 cmap w!! w !sudo tee > /dev/null %
 
-" coloured status bar
-set laststatus=2
+" zah/nim plugin jump to definition
+fun! JumpToDef()
+    if exists("*GotoDefinition_" . &filetype)
+        call GotoDefinition_{&filetype}()
+    else
+        exe "norm! \<C-]>"
+    endif
+endf
 
-" au InsertEnter * hi StatusLine term=reverse ctermbg=1 gui=undercurl guisp=Red
-" au InsertLeave * hi StatusLine term=reverse ctermfg=0 ctermbg=2 gui=bold,reverse
+
+call plug#begin()
+Plug 'roxma/nvim-completion-manager'
+Plug 'Shougo/deoplete.nvim'
+Plug 'scrooloose/nerdTree'
+Plug 'SirVer/ultisnips'
+Plug 'bling/vim-airline'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-surround'
+Plug 'chadvoegele/nvim-slime'
+Plug 'zah/nim.vim'
+Plug 'scrooloose/syntastic'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'chriskempson/base16-vim'
+Plug 'ervandew/supertab'
+call plug#end()
+
+
+colorscheme base16-default-dark
+let base16colorspace=256
